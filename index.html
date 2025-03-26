@@ -10,13 +10,8 @@
     <meta property="og:url" content="https://yourgithubusername.github.io/dynamic-job-pages/" />
     <script>
         async function fetchJobData() {
-              const jobId = pathParts.length > 0 ? pathParts[pathParts.length - 1] : null;
-
-                if (!jobId) {
-                    document.body.innerHTML = "<h1>Error: No Job ID Found</h1>";
-                    return;
-                }
-
+              const jobId = new URLSearchParams(window.location.search).get("job_post_id");
+            if (!jobId) return;
             const apiUrl = `https://api.bench-stage.xyz/api/v1/ats/job-posts/{jobId}`;
 
             try {
