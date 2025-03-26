@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Loading Job...</title>
+    <meta property="og:title" content="Loading Job..." />
+    <meta property="og:description" content="Fetching job details..." />
+    <meta property="og:image" content="https://your-default-image-url.com/default.jpg" />
+    <meta property="og:url" content="https://yourgithubusername.github.io/dynamic-job-pages/" />
+    <script>
+        async function fetchJobData() {
+            const jobId = new URLSearchParams(window.location.search).get("job_post_id");
+            if (!jobId) return;
+
+            const apiUrl = `https://api.bench-stage.xyz/api/v1/ats/job-posts?job_post_id=${jobId}`;
+
+            try {
+                const response = await fetch(apiUrl, {
+                    headers: {
+                        Authorization: "Bearer vNp7ZH8b2yFyMDwylVrquQcNzBmrGOAX8bsICv1lQrpVGg5tGV7zu3cylzzs1l4ESpf9fuCE3yaEQ0waaQOVBEyYKgeZnVIbMndjKvNPkMBtL3D70HUqDur0feAgz6u6pBudDl9uT6opXWWcFn0lJNATatUQBp2Cx7THRw9XO9gKVIFhD8aC6uIddyJQLFY2e1ApfUHs5W27pdLJ0MRgTsGUWzaQ3KOM45XG4asE82t5wH21", 
+                        "Content-Type": "application/json"
+                    }
+                });
+                const data = await response.json();
+
+                document.title = data.job_title?.name || "Job Post";
+                document.querySelector('meta[property="og:title"]').setAttribute("content", data.job_title?.name || "Job Post");
+                document.querySelector('meta[property="og:description"]').setAttribute("content", data.job_description || "Job Description");
+                document.querySelector('meta[property="og:image"]').setAttribute("content", data.cover || "https://your-default-image-url.com/default.jpg");
+            } catch (error) {
+                console.error("Error fetching job data:", error);
+            }
+        }
+        fetchJobData();
+    </script>
+</head>
+<body>
+    <h1>Job Page</h1>
+    <p>Loading job details...</p>
+</body>
+</html>
