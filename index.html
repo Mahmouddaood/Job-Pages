@@ -12,7 +12,7 @@
         async function fetchJobData() {
               const jobId = new URLSearchParams(window.location.search).get("job_post_id");
             if (!jobId) return;
-            const apiUrl = `https://api.bench-stage.xyz/api/v1/ats/job-posts/{decodeURIComponent(jobId)}`;
+            const apiUrl = `https://api.bench-stage.xyz/api/v1/ats/job-posts/${decodeURIComponent(jobId)}`;
 
             try {
                 const response = await fetch(apiUrl, {
